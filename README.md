@@ -23,8 +23,7 @@ It provides a **task pane app** with a polished dashboard, a **New Lead** form, 
   └── icons/
       ├── icon-32.png
       └── icon-80.png
-manifest.xml          # Office Add-in manifest (already configured to your GitHub Pages URL)
-LifeNavigator_CRM_Template.xlsx  # Optional starter workbook with the tables defined
+manifest.xml          # Office Add-in manifest 
 ```
 
 ---
