@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LifeNavigator CRM</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <h1>LifeNavigator CRM</h1>
+      <button id="refreshBtn" class="btn primary">Refresh</button>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="form">New Lead</button>
+      <button class="tab" data-tab="leads">Leads</button>
+      <button class="tab" data-tab="activities">Activities</button>
+    </nav>
+
+    <section id="dashboard" class="tab-panel active">
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-label">Total Leads</div><div id="kpi-total" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">New</div><div id="kpi-new" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">Qualified</div><div id="kpi-qualified" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">Proposals</div><div id="kpi-proposals" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">Won</div><div id="kpi-won" class="kpi-value">0</div></div>
+        <div class="kpi"><div class="kpi-label">Lost</div><div id="kpi-lost" class="kpi-value">0</div></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="card"><h3>Status Mix</h3><svg id="chart-status" class="chart"></svg></div>
+        <div class="card"><h3>Pipeline Value by Stage</h3><svg id="chart-stage" class="chart"></svg></div>
+        <div class="card wide"><h3>New Leads (Last 6 Months)</h3><svg id="chart-months" class="chart tall"></svg></div>
+      </div>
+    </section>
+
+    <section id="form" class="tab-panel">
+      <form id="leadForm" class="form-grid">
+        <div class="field"><label>Owner</label><input name="owner" required></div>
+        <div class="field"><label>Account</label><input name="account"></div>
+        <div class="field"><label>Name</label><input name="name" required></div>
+        <div class="field"><label>Title/Role</label><input name="title"></div>
+        <div class="field"><label>Email</label><input name="email" type="email" required></div>
+        <div class="field"><label>Phone</label><input name="phone"></div>
+        <div class="field"><label>City/State</label><input name="citystate"></div>
+        <div class="field"><label>Source</label>
+          <select name="source">
+            <option>Referral</option><option>LinkedIn</option><option>Website</option>
+            <option>Event</option><option>Partner</option><option>Cold Outreach</option>
+          </select></div>
+        <div class="field"><label>Priority</label>
+          <select name="priority">
+            <option>Low</option><option>Medium</option><option>High</option><option>Urgent</option>
+          </select></div>
+        <div class="field"><label>Status</label>
+          <select name="status">
+            <option>New</option><option>Contacted</option><option>Qualified</option>
+            <option>Proposal</option><option>Won</option><option>Lost</option><option>Archived</option>
+          </select></div>
+        <div class="field"><label>Stage</label>
+          <select name="stage">
+            <option>Discovery</option><option>Qualification</option><option>Proposal</option>
+            <option>Negotiation</option><option>Closed Won</option><option>Closed Lost</option>
+          </select></div>
+        <div class="field"><label>Est. Value ($)</label><input name="value" type="number" step="0.01"></div>
+        <div class="field"><label>Close Date</label><input name="closedate" type="date"></div>
+        <div class="field wide"><label>Notes</label><textarea name="notes" rows="3"></textarea></div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Submit</button>
+          <button type="button" id="clearBtn" class="btn">Clear</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="leads" class="tab-panel">
+      <div class="toolbar">
+        <input id="searchInput" placeholder="Search name or email…" />
+        <button id="searchBtn" class="btn">Search</button>
+        <button id="showAllBtn" class="btn">Show All</button>
+      </div>
+      <div class="table-wrapper">
+        <table id="leadsTable">
+          <thead>
+            <tr>
+              <th>ID</th><th>Created</th><th>Updated</th><th>Owner</th><th>Account</th><th>Name</th>
+              <th>Title</th><th>Email</th><th>Phone</th><th>City/State</th><th>Source</th><th>Priority</th>
+              <th>Status</th><th>Stage</th><th>Value</th><th>Close Date</th><th>Notes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="activities" class="tab-panel">
+      <div class="toolbar">
+        <button id="logActivityBtn" class="btn primary">Log Activity for Lead ID…</button>
+      </div>
+      <div class="table-wrapper">
+        <table id="activitiesTable">
+          <thead>
+            <tr>
+              <th>Timestamp</th><th>Lead ID</th><th>Owner</th><th>Type</th><th>Notes</th><th>Next Step</th><th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
